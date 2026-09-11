@@ -559,10 +559,12 @@ document.addEventListener("keydown", function (event) {
   #thiepcuoi2-gift-modal .gift-close { position: absolute; top: 8px; right: 12px; padding: 4px 9px; color: inherit; background: transparent; cursor: pointer; font: 28px/1 Arial, sans-serif; }
   #thiepcuoi2-gift-modal img { display: block; width: min(220px, 100%); margin: 12px auto 18px; }
   #thiepcuoi2-gift-modal p { margin: 4px 0; font: 600 16px/1.35 Arial, sans-serif; overflow-wrap: anywhere; }
+  #thiepcuoi2-gift-modal .gift-copy { width: 100%; margin-top: 16px; padding: 11px 14px; border-radius: 10px; background: #243b53; color: #fff; cursor: pointer; font: 700 15px/1 Arial, sans-serif; }
+  #thiepcuoi2-gift-modal .gift-copy-status { min-height: 18px; margin-top: 8px; color: #27734a; font-size: 13px; }
 </style>
 <script>
   ;(() => {
-    const weddingInfo = {"chu_re":"Duy Đông","co_dau":"Ngọc Loan","time1":"16h00","day1":"Thứ Bảy","date1":"19/09/2026","date1_am":"Tức 09 tháng 08 năm Bính Ngọ","time2":"9h00","day2":"Chủ Nhật","date2":"20/09/2026","date2_am":"Tức 10 tháng 08 năm Bính Ngọ","bo_chu_re":"Dương Văn Chương","me_chu_re":"Cao Thị Đối","bo_co_dau":"Hoàng Quang Đoàn","me_co_dau":"Nguyễn Hồng Lê","diachi_chu_re":"Tổ dân phố 5, phường Mỹ Lâm,Tuyên Quang","map_chu_re":"https://maps.app.goo.gl/hF8FQQChFLuBBPmX8","diachi_co_dau":"Tổ dân phố 2, phường Mỹ Lâm,Tuyên Quang","map_co_dau":"https://maps.app.goo.gl/J3XDVR2DgbpFcwHU7","account_name_chu_re":"Dương Duy Đông","account_bank_chu_re":"Techcombank","account_number_chu_re":"6121234567","account_name_co_dau":"Hoàng Ngọc Loan","account_bank_co_dau":"Viettinbank","account_number_co_dau":"100877402763","save_the_date1":23,"save_the_date2":24,"map_embed_chu_re":"https://www.openstreetmap.org/export/embed.html?bbox=105.115%2C21.758%2C105.130%2C21.771\u0026layer=mapnik\u0026marker=21.7646226%2C105.1228439","map_embed_co_dau":"https://www.openstreetmap.org/export/embed.html?bbox=105.132%2C21.742%2C105.146%2C21.755\u0026layer=mapnik\u0026marker=21.748376%2C105.139137","map_mode":"embed","date1Parts":{"day":19,"month":9,"year":2026},"date2Parts":{"day":20,"month":9,"year":2026}};
+    const weddingInfo = {"chu_re":"Duy Đông","co_dau":"Ngọc Loan","time1":"16h00","day1":"Thứ Bảy","date1":"19/09/2026","date1_am":"Tức 09 tháng 08 năm Bính Ngọ","time2":"9h00","day2":"Chủ Nhật","date2":"20/09/2026","date2_am":"Tức 10 tháng 08 năm Bính Ngọ","bo_chu_re":"Dương Văn Chương","me_chu_re":"Cao Thị Đối","bo_co_dau":"Hoàng Quang Đoàn","me_co_dau":"Nguyễn Hồng Lê","diachi_chu_re":"Tổ dân phố 5, phường Mỹ Lâm,Tuyên Quang","map_chu_re":"https://maps.app.goo.gl/hF8FQQChFLuBBPmX8","diachi_co_dau":"Tổ dân phố 2, phường Mỹ Lâm,Tuyên Quang","map_co_dau":"https://maps.app.goo.gl/J3XDVR2DgbpFcwHU7","account_name_chu_re":"Dương Duy Đông","account_bank_chu_re":"Techcombank","account_number_chu_re":"6121234567","account_name_co_dau":"Hoàng Ngọc Loan","account_bank_co_dau":"Viettinbank","account_number_co_dau":"100877402763","map_embed_chu_re":"https://www.openstreetmap.org/export/embed.html?bbox=105.115%2C21.758%2C105.130%2C21.771\u0026layer=mapnik\u0026marker=21.7646226%2C105.1228439","map_embed_co_dau":"https://www.openstreetmap.org/export/embed.html?bbox=105.132%2C21.742%2C105.146%2C21.755\u0026layer=mapnik\u0026marker=21.748376%2C105.139137","map_mode":"embed","date1Parts":{"day":19,"month":9,"year":2026},"date2Parts":{"day":20,"month":9,"year":2026}};
     const params = new URLSearchParams(window.location.search);
     const ngay = params.get('ngay') === '1' ? '1' : '2';
     const addr = params.get('addr') === 'dau' ? 'dau' : 're';
@@ -605,8 +607,28 @@ document.addEventListener("keydown", function (event) {
       modal = document.createElement('div');
       modal.id = 'thiepcuoi2-gift-modal';
       modal.setAttribute('aria-hidden', 'true');
-      modal.innerHTML = '<div class="gift-dialog" role="dialog" aria-modal="true" aria-label="Thông tin mừng cưới"><button type="button" class="gift-close" aria-label="Đóng">×</button><p data-gift-title></p><img alt="Mã QR mừng cưới"><p data-gift-bank></p><p data-gift-holder></p><p data-gift-number></p></div>';
+      modal.innerHTML = '<div class="gift-dialog" role="dialog" aria-modal="true" aria-label="Thông tin mừng cưới"><button type="button" class="gift-close" aria-label="Đóng">×</button><p data-gift-title></p><img alt="Mã QR mừng cưới"><p data-gift-bank></p><p data-gift-holder></p><p data-gift-number></p><button type="button" class="gift-copy" data-copy-account>Sao chép số tài khoản</button><p class="gift-copy-status" data-copy-status aria-live="polite"></p></div>';
       modal.addEventListener('click', event => { if (event.target === modal || event.target.closest('.gift-close')) { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); } });
+      modal.querySelector('[data-copy-account]').addEventListener('click', async () => {
+        const number = modal.dataset.accountNumber;
+        const status = modal.querySelector('[data-copy-status]');
+        const button = modal.querySelector('[data-copy-account]');
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(number);
+          else {
+            const helper = document.createElement('textarea');
+            helper.value = number; helper.setAttribute('readonly', ''); helper.style.position = 'fixed'; helper.style.opacity = '0';
+            document.body.append(helper); helper.select();
+            const copied = document.execCommand && document.execCommand('copy');
+            helper.remove();
+            if (!copied) throw new Error('clipboard unavailable');
+          }
+          status.textContent = 'Đã sao chép số tài khoản';
+          button.textContent = 'Đã sao chép';
+        } catch {
+          status.textContent = 'Không thể tự sao chép. Hãy nhấn giữ số tài khoản để sao chép.';
+        }
+      });
       document.addEventListener('keydown', event => { if (event.key === 'Escape') { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); } });
       document.body.append(modal);
       return modal;
@@ -622,6 +644,9 @@ document.addEventListener("keydown", function (event) {
       modal.querySelector('[data-gift-bank]').textContent = gift.bank;
       modal.querySelector('[data-gift-holder]').textContent = gift.holder;
       modal.querySelector('[data-gift-number]').textContent = gift.number;
+      modal.dataset.accountNumber = gift.number;
+      modal.querySelector('[data-copy-account]').textContent = 'Sao chép số tài khoản';
+      modal.querySelector('[data-copy-status]').textContent = '';
       modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
     };
 
