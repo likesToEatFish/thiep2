@@ -165,10 +165,15 @@
   #BUTTON_TEXT2 > .ladi-headline { transform: translateX(11px); }
   /* Ảnh xuất hiện sau khi nhấn mở thiệp: chậm hơn nhẹ để chuyển cảnh dịu hơn. */
   #IMAGE1.ladi-animation > .ladi-image { animation-duration: 2s !important; }
-  /* photo-05 và photo-07 có tỷ lệ khác khung ảnh của mẫu; hiển thị đủ ảnh thay vì cắt mép. */
+  /* photo-05 và photo-07 là ảnh ngang 3:2, vừa với hai khung ngang này.
+     Đặt lại lớp nền đúng kích thước khung để ảnh không bị hở hoặc bị thu ngắn. */
   #IMAGE13 > .ladi-image > .ladi-image-background,
   #IMAGE16 > .ladi-image > .ladi-image-background {
-    background-size: contain !important;
+    width: 200px !important;
+    height: 135px !important;
+    top: 0 !important;
+    left: 0 !important;
+    background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
   }
